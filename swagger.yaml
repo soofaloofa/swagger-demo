@@ -1,0 +1,46 @@
+swagger: '2.0'
+info:
+  title: Player API
+  description: A simple API for Player resources
+  version: 1.0.1
+  contact:
+    name: Kevin Sookocheff
+    url: http://sookocheff.com
+    email: kevin.sookocheff@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://sookocheff.com/terms
+paths:
+  "/player/{id}":
+    get:
+      description: Returns a player with the identifier provided in the path
+      produces:
+      - application/json
+      response:
+        '200':
+          description: A player resource.
+          schema:
+            "$ref": "#/definitions/Player"
+    x-amazon-apigateway-integration:
+      type: http
+      responses:
+        default:
+          statusCode: '200'
+      httpMethod: GET
+      uri: http://api.example.com
+definitions:
+  Player:
+    type: object
+    properties:
+      playerId:
+        type: string
+      alias:
+        type: string
+      displayName:
+        type: string
+      profilePhotoUrl:
+        type: string
+    required:
+    - playerId
+    - alias
